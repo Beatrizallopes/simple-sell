@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import Header from '../../components/Header';
 import {
@@ -8,6 +9,7 @@ import Searchbar from "../../components/Searchbar";
 import Button from "../../components/Button";
 import { Eletronics, Fashion, House } from '../../assets/icons';
 import { formatMoney } from '../../services/functions';
+import ModalAddProduct from './ModalAddProduct/index';
 
 const productsMocked = [
   {
@@ -62,6 +64,7 @@ function Products(){
   const [products, setProducts] = useState(productsMocked)
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
+  const [openModalAddProduct, setOpenModalAddProduct] = useState(false);
 
 
   let productsToShow = [...products];
@@ -127,7 +130,7 @@ function Products(){
               color="var(--background)" 
               borderColor="var(--blue)" 
               disabled={false} 
-              onClick={()=> {}}
+              onClick={()=> {setOpenModalAddProduct(true)}}
               fontSize="0.8rem"
               ></Button>
           <Searchbar 
@@ -141,6 +144,12 @@ function Products(){
           </Row>
           {renderContent()};
         </Content>
+        <ModalAddProduct 
+         open={openModalAddProduct} 
+         handleOpen={setOpenModalAddProduct} 
+         width={700} 
+         height={330} 
+         ></ModalAddProduct>
       </Container>
     );
   };

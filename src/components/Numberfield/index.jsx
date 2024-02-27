@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
+
 import { Container, Label} from './styles';
 import TextField from '@mui/material/TextField';
 
-export default function CustomizedTextfield({ label, width, disabled, fontSize, value, multiline, onChange, password}){
+export default function CustomizedNumberfield({ label, width, disabled, fontSize, value, onChange}){
 
     return (
         <Container>
@@ -10,12 +11,10 @@ export default function CustomizedTextfield({ label, width, disabled, fontSize, 
             <TextField  
                 variant="outlined" 
                 size="small"
+                type="number"
                 disabled={disabled}
                 value={value}
-                multiline={multiline}
-                rows={4}
-                onChange={(event)=> onChange(event.target.value)}
-                type={password ? "password" : "text"}
+                onChange={(event)=> onChange(Number(event.target.value))}
                 sx={{ 
                     borderRadius:'10px', 
                     border: '0.2px solid var(--txt-subtitle)',
@@ -27,8 +26,8 @@ export default function CustomizedTextfield({ label, width, disabled, fontSize, 
                     }}
                 style={{
                     width: width,
-                    color: 'white',
-                    background:'transparent',
+                    color: 'var(--txt-title)',
+                    background:'var(--box-background)',
                     fontSize: fontSize
                     }} />
         </Container>

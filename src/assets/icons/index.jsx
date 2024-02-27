@@ -5,6 +5,7 @@ import Clear from './clear.svg';
 import Fashion from './fashion.svg';
 import Eletronics from './eletronics.svg';
 import House from './house.svg';
+import Close from './close.svg';
 
 export {
     Products,
@@ -14,4 +15,5 @@ export {
     Fashion,
     Eletronics,
     House,
+    Close,
 };
