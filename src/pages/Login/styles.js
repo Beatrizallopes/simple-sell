@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-height: 100vh;
-width: 100vw;
+height: 100%;
+width: 100%;
 background-size: cover;
 background-repeat: no-repeat;
 display: flex;
@@ -12,9 +12,9 @@ justify-content: center;
 `;
 
 export const Box = styled.div`
-// background: var(--txt-title);
 height: auto;
-padding: 2%;
+// border: 0.5px solid var(--txt-subtitle);
+padding: 3%;
 border-radius:10px;
 display: flex;
 flex-direction: column;
