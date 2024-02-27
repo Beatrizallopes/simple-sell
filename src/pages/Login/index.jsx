@@ -8,7 +8,7 @@ import {
    RowButton,
   } from './styles';
   import { Logo} from '../../assets/images/index';
-  // import TextfieldDark from "../../components/TextfieldDark";
+  import Textfield from "../../components/Textfield";
   // import Button from "../../components/Button";
   import { useNavigate } from "react-router-dom";
   import LocalStorageService from '../../services/storage';
@@ -75,8 +75,8 @@ export default function Login(){
         <LogoRow>
           <LogoImg src={Logo} alt='logo' />
         </LogoRow>
-        {/* <Row>
-          <TextfieldDark
+        <Row>
+          <Textfield
             label="E-mail"
             width={400}
             disabled={false} 
@@ -85,10 +85,10 @@ export default function Login(){
             onChange={setEmail}
             multiline={false}
             password={false}
-            ></TextfieldDark>
+            ></Textfield>
           </Row>
           <Row>
-            <TextfieldDark
+            <Textfield
               label="Senha"
               width={400}
               disabled={false} 
@@ -96,9 +96,9 @@ export default function Login(){
               fontSize={fontSize} 
               onChange={setPassword}
               multiline={false}
-              password={!showPassword}
-            ></TextfieldDark>
-        </Row> */}
+              password={true}
+            ></Textfield>
+        </Row>
         <RowButton>
         {/* <Button
           label="Entrar no sistema" 
