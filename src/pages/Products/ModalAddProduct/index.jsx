@@ -1,4 +1,10 @@
-import { FormEvent, useEffect, useState, useContext} from "react";
+/* eslint-disable react/prop-types */
+import { 
+  // FormEvent, 
+  // useEffect, 
+  useState, 
+  // useContext
+} from "react";
 import Button from "../../../components/Button";
 import Textfield from "../../../components/Textfield";
 import {Container, Header, Row, Content} from './styles';
@@ -7,7 +13,7 @@ import {Close} from '../../../assets/icons/index';
 import Spinner from "../../../components/Spinner";
 import Numberfield from "../../../components/Numberfield";
 import Autocomplete from "../../../components/Autocomplete";
-import AppContext from "../../../state/App.context";
+// import AppContext from "../../../state/App.context";
 
 const categories = [
   {
@@ -36,25 +42,25 @@ export default function ModalAddCostCenter({open, handleOpen, width, height}){
 
     const title = 'Adicionar novo produto';
 
-    function cleanAllInputs(){
-      try{
-          setName('');
-      } catch(err){
-           console.log(err);
-      }
-  }
+  //   function cleanAllInputs(){
+  //     try{
+  //         setName('');
+  //     } catch(err){
+  //          console.log(err);
+  //     }
+  // }
 
-  function checkingRequiredFields() {
-    if (!name || !price) {
-      // setSnack({
-      //   open: true,
-      //   severity: 'error', 
-      //   message: 'Preencha todos os campos necessários!',
-      // });
-      return false;
-    }
-    return true;
-  }
+  // function checkingRequiredFields() {
+  //   if (!name || !price) {
+  //     setSnack({
+  //       open: true,
+  //       severity: 'error', 
+  //       message: 'Preencha todos os campos necessários!',
+  //     });
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
     async function handleCreateNewCostCenter(event){
       try{
