@@ -1,4 +1,4 @@
-
+/* eslint-disable react/prop-types */
 import {useState, useEffect} from "react";
 // import {Logo, LogoExpanded} from '../../assets/images/index';
 // import {Overview, OverviewSelected, Transactions, TransactionsSelected, Trips,TripsSelected, Schedule, ScheduleSelected, Records,RecordsSelected, Settings, SettingsSelected,Orders, OrdersSelected, Logout, Logs, LogsSelected, TripsByBoat, TripsByBoatSelected, Stock, StockSelected, Salary, SalarySelected} from '../../assets/icons/index';

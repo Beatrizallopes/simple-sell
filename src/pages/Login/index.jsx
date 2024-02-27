@@ -1,4 +1,8 @@
-import  { useState, useContext, useEffect} from "react";
+import  { 
+  useState,
+  // useContext, 
+  useEffect
+} from "react";
 import {
    Container,
    Box,
@@ -8,12 +12,11 @@ import {
    RowButton,
   } from './styles';
   import { Logo} from '../../assets/images/index';
-  // import TextfieldDark from "../../components/TextfieldDark";
-  // import Button from "../../components/Button";
+  import Textfield from "../../components/Textfield";
+  import Button from "../../components/Button";
   import { useNavigate } from "react-router-dom";
   import LocalStorageService from '../../services/storage';
-  import AppContext from "../../state/App.context";
-  // import { UseUsers } from "../../hooks/useUsers";
+  // import AppContext from "../../state/App.context";
 
 export default function Login(){
   console.log('produtos')
@@ -75,8 +78,8 @@ export default function Login(){
         <LogoRow>
           <LogoImg src={Logo} alt='logo' />
         </LogoRow>
-        {/* <Row>
-          <TextfieldDark
+        <Row>
+          <Textfield
             label="E-mail"
             width={400}
             disabled={false} 
@@ -85,10 +88,10 @@ export default function Login(){
             onChange={setEmail}
             multiline={false}
             password={false}
-            ></TextfieldDark>
+            ></Textfield>
           </Row>
           <Row>
-            <TextfieldDark
+            <Textfield
               label="Senha"
               width={400}
               disabled={false} 
@@ -96,30 +99,32 @@ export default function Login(){
               fontSize={fontSize} 
               onChange={setPassword}
               multiline={false}
-              password={!showPassword}
-            ></TextfieldDark>
-        </Row> */}
+              password={true}
+            ></Textfield>
+        </Row>
         <RowButton>
-        {/* <Button
-          label="Entrar no sistema" 
-          background="#FFFFFF" 
-          color="#141522" 
-          borderColor="#FFFFFF" 
-          disabled={false} 
-          onClick={()=> {verifyingCredentials()}}
+          <Button
+            label="Entrar no sistema" 
+            background="var(--blue)" 
+            color="var(--background)" 
+            borderColor="var(--blue)" 
+            disabled={false} 
+            onClick={()=> {verifyingCredentials()}}
+            fontSize='1rem'
           ></Button>
         </RowButton>
         <RowButton style={{ marginTop: '4%'}}>
-        <Button
-          label="Cadastrar usuário" 
-          background="#141522" 
-          color="#FFFFFF" 
-          borderColor="#FFFFFF" 
-          disabled={false} 
-          onClick={()=> { navigate('/register')}}
-          ></Button> */}
+          <Button
+            label="Cadastrar usuário" 
+            background="var(--background)" 
+            color="var(--txt-title)" 
+            borderColor="var(--txt-title)" 
+            disabled={false} 
+            onClick={()=> { navigate('/register')}}
+            fontSize='1rem'
+          ></Button> 
         </RowButton>
         </Box>
       </Container>
     );
-  };
+  }

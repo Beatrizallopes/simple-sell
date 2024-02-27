@@ -1,26 +1,27 @@
-import React, {useContext, useEffect} from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import AppContext from '../state/App.context';
+/* eslint-disable react/prop-types */
+// import React, {useContext, useEffect} from 'react';
+// import Snackbar from '@material-ui/core/Snackbar';
+// import MuiAlert from '@material-ui/lab/Alert';
+// import AppContext from '../state/App.context';
 import { Menu } from '../components/Menu';
 // import './Base.css';
 
-function Alert(props){
-    return <MuiAlert elevation={6} variant="filled" {...props}/>
-}
+// function Alert(props){
+//     return <MuiAlert elevation={6} variant="filled" {...props}/>
+// }
 
 function Base({children}){
     // const [snack, setSnack] = useContext(AppContext).snackState;
 
-    const handleClose = (event, reason) => {
-        if(reason === 'clickaway'){
-            return;
-        };
-        // setSnack({
-        //     ... snack,
-        //     open: false,
-        // })
-    }
+    // const handleClose = (event, reason) => {
+    //     if(reason === 'clickaway'){
+    //         return;
+    //     };
+    //     setSnack({
+    //         ... snack,
+    //         open: false,
+    //     })
+    // }
 
     return (
         <div style={{
