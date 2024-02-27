@@ -2,14 +2,16 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header';
 import {
-   Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo, Stock,
+   Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo, Stock, EditIcon, RemoveIcon
   } from './styles';
 import Spinner from '../../components/Spinner';
 import Searchbar from "../../components/Searchbar";
 import Button from "../../components/Button";
-import { Eletronics, Fashion, House } from '../../assets/icons';
+import { Eletronics, Fashion, House, Edit, Delete} from '../../assets/icons';
 import { formatMoney } from '../../services/functions';
 import ModalAddProduct from './ModalAddProduct/index';
+import Tooltip from '@mui/material/Tooltip';
+
 
 const productsMocked = [
   {
@@ -84,6 +86,12 @@ function Products(){
     return (
       <ProductBox>
         <ProductIcon src={icon}></ProductIcon>
+        <Tooltip title='Editar produto'>
+          <EditIcon src={Edit}></EditIcon>
+        </Tooltip>
+        <Tooltip title='Deletar produto'>
+          <RemoveIcon src={Delete}></RemoveIcon>
+        </Tooltip>
         <ProductInfo>
           <Name>{product?.name}</Name>
           <Price>{formatMoney(product?.price)}</Price>
