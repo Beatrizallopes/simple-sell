@@ -1,13 +1,15 @@
 import { GlobalStyle } from "./styles/global";
 import Modal from 'react-modal';
 import { BrowserRouter as Router , Routes, Route} from "react-router-dom";
-import  Login  from './pages/Login/index';
 import { useState } from 'react'
 import './App.css'
 
 import ProtectedRoute from './routes/ProtectedRoute';
 import styled from 'styled-components';
 import Base from './Base';
+
+import  Login  from './pages/Login/index';
+import Products from "./pages/Products";
 
 const Root = styled.div`
   display: flex;
@@ -28,6 +30,7 @@ export default function App() {
       <Root>
         <Routes>
             <Route path='/' element={<Login />} />
+            <Route path='/products' element={<Products />} />
             {/* <Route path='/register' element={<RegisterUser />} /> */}
         </Routes>
         </Root>
