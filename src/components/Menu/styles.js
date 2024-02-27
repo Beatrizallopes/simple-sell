@@ -16,7 +16,7 @@ export const Nav = styled.nav`
 
 export const NavLink = styled(Link)`
   white-space: nowrap;
-  width: 90%;
+  width: 100%;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
   font-weight: 600;
@@ -28,7 +28,7 @@ export const NavLink = styled(Link)`
   align-items: center;
   justify-content: start;
   text-decoration: none;
-  font-size: 0.8rem !important;
+  font-size: 1rem !important;
   text-align: left;
   padding: 0.75rem 1.5rem;
   cursor: pointer;
