@@ -6,7 +6,7 @@ import {
   // import { UseProducts } from '../../hooks/useProducts';
   // import Table from '../../components/Table';
   import Spinner from '../../components/Spinner';
-  // import Searchbar from "../../components/Searchbar";
+  import Searchbar from "../../components/Searchbar";
   import Button from "../../components/Button";
   // import Drawer from "../../components/Drawer";
   // import Datepicker from "../../components/Datepicker";
@@ -60,8 +60,16 @@ function Products(){
               borderColor="var(--blue)" 
               disabled={false} 
               onClick={()=> {}}
+              fontSize="1rem"
               ></Button>
-          {/* <Searchbar value={search} onChange={setSearch} disabled={false} width={300} placeholder="Buscar usuário..." fontSize={'0.7rem'} ></Searchbar> */}
+          <Searchbar 
+            value={search} 
+            onChange={setSearch} 
+            disabled={false}
+            width={300} 
+            placeholder="Buscar produto..." 
+            fontSize={'1rem'} 
+            ></Searchbar>
           </Row>
           {renderContent()};
         </Content>
