@@ -59,10 +59,15 @@ export const ProductBox = styled.div`
     width: 100%;
     border-radius: 1rem;
     height:100px;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
     align-items: center;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: transform .2s;
+    &:hover {
+      transform: scale(1.03);
+    }
 `;
 
 export const Name = styled.h1`
@@ -70,6 +75,7 @@ export const Name = styled.h1`
     font-size: 0.9rem;
     color: var(--txt-title);
     text-align: left;
+    margin-bottom: 0.2rem;
 ` ;
 
 export const Price = styled.h1`
@@ -77,16 +83,18 @@ export const Price = styled.h1`
     font-size: 0.9rem;
     color: var(--blue);
     text-align: left;
+    margin-bottom: 0.3rem;
+` ;
+
+export const Stock = styled.h1`
+    font-weight: 500;
+    font-size: 0.6rem;
+    color: var(--txt-title);
+    text-align: left;
 ` ;
 
 export const ProductIcon = styled.img`
   width: 48px;
-  cursor: pointer;
-  transition: transform .2s;
-  margin-right: 1rem;
-  &:hover {
-    transform: scale(1.05);
-  }
 `;
 
 export const ProductInfo= styled.div`

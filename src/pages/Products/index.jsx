@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header';
 import {
-   Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo
+   Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo, Stock,
   } from './styles';
 import Spinner from '../../components/Spinner';
 import Searchbar from "../../components/Searchbar";
@@ -84,6 +84,7 @@ function Products(){
         <ProductInfo>
           <Name>{product?.name}</Name>
           <Price>{formatMoney(product?.price)}</Price>
+          <Stock> Restam {product?.stock} produtos</Stock>
         </ProductInfo>
       </ProductBox>
     )
