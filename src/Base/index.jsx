@@ -3,6 +3,7 @@
 // import Snackbar from '@material-ui/core/Snackbar';
 // import MuiAlert from '@material-ui/lab/Alert';
 // import AppContext from '../state/App.context';
+import { red } from '@material-ui/core/colors';
 import { Menu } from '../components/Menu';
 // import './Base.css';
 
@@ -30,6 +31,7 @@ function Base({children}){
             alignItems:'center', 
             justifyContent:'space-between', 
             width: '100%',
+            height: '100%',
             position: 'relative',
             overflow: 'hidden',}}>
             <Menu></Menu>
