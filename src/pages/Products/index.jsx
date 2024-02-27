@@ -1,38 +1,93 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header';
 import {
-   Container, Content, Row,
+   Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo
   } from './styles';
-  // import { UseProducts } from '../../hooks/useProducts';
-  // import Table from '../../components/Table';
-  import Spinner from '../../components/Spinner';
-  import Searchbar from "../../components/Searchbar";
-  import Button from "../../components/Button";
-  // import Drawer from "../../components/Drawer";
-  // import Datepicker from "../../components/Datepicker";
-//  import moment from 'moment';
+import Spinner from '../../components/Spinner';
+import Searchbar from "../../components/Searchbar";
+import Button from "../../components/Button";
+import { Eletronics, Fashion, House } from '../../assets/icons';
+import { formatMoney } from '../../services/functions';
+
+const productsMocked = [
+  {
+    id: 1,
+    name: 'Iphone 11',
+    price: 5000,
+    stock: 13,
+    lastUpdated: new Date(),
+    createdAt: new Date(),
+    category: 'eletrônicos'
+  },
+  {
+    id: 2,
+    name: 'Iphone 12',
+    price: 7000,
+    stock: 30,
+    lastUpdated: new Date(),
+    createdAt: new Date(),
+    category: 'eletrônicos'
+  },
+  {
+    id: 3,
+    name: 'Aspirador de pó',
+    price: 800,
+    stock: 2,
+    lastUpdated: new Date(),
+    createdAt: new Date(),
+    category: 'casa'
+  },
+  {
+    id: 4,
+    name: 'Air Fryer',
+    price: 1200,
+    stock: 100,
+    lastUpdated: new Date(),
+    createdAt: new Date(),
+    category: 'casa'
+  },  
+  {
+    id: 5,
+    name: 'Salto alto',
+    price: 200,
+    stock: 15,
+    lastUpdated: new Date(),
+    createdAt: new Date(),
+    category: 'moda'
+  },
+]
 
 
 function Products(){
-  // const { products, loading} = UseProducts();
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState(productsMocked)
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
 
 
   let productsToShow = [...products];
-  // productsToShow = productsToShow && productsToShow.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-  // if(search.length > 0){
-  //   productsToShow = productsToShow.filter(a => a.e_mail.toLowerCase().includes(search.toLowerCase()));
-  // }
-  // if(filters?.startDate !== '' && filters?.endDate !== '' ){
-  //   const startDate = moment(filters?.startDate, 'YYYY-MM-DD');
-  //   const endDate = moment(filters?.endDate, 'YYYY-MM-DD');
-  //   productsToShow = productsToShow.filter((log) => {
-  //     return verifyInterval(startDate, endDate, moment(log.created_at, 'YYYY-MM-DD')) 
-  //   });
-  // }
+  if(search.length > 0){
+    productsToShow = productsToShow.filter(a => a.name.toLowerCase().includes(search.toLowerCase()));
+  }
+
+  function Product({product}){
+    let icon = Eletronics;
+    if(product?.category === 'moda'){
+      icon = Fashion;
+    }
+    if(product?.category === 'casa'){
+      icon = House;
+    }
+    return (
+      <ProductBox>
+        <ProductIcon src={icon}></ProductIcon>
+        <ProductInfo>
+          <Name>{product?.name}</Name>
+          <Price>{formatMoney(product?.price)}</Price>
+        </ProductInfo>
+      </ProductBox>
+    )
+  } 
 
   function renderContent(){
     if(loading){
@@ -43,7 +98,19 @@ function Products(){
       )
     } else {
       return (
-       <></>
+       <Section>
+       <SectionTitle>Lista de produtos cadastrados</SectionTitle>
+       <ProductsList>
+        {
+          productsToShow.map((product)=>{
+            return (
+              <Product product={product} key={product?.id}></Product>
+            )
+          })
+        }
+
+       </ProductsList>
+       </Section>
       )
     }
   }
@@ -60,15 +127,15 @@ function Products(){
               borderColor="var(--blue)" 
               disabled={false} 
               onClick={()=> {}}
-              fontSize="1rem"
+              fontSize="0.8rem"
               ></Button>
           <Searchbar 
             value={search} 
             onChange={setSearch} 
             disabled={false}
-            width={300} 
+            width={280} 
             placeholder="Buscar produto..." 
-            fontSize={'1rem'} 
+            fontSize={'0.8rem'} 
             ></Searchbar>
           </Row>
           {renderContent()};

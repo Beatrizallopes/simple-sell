@@ -60,7 +60,7 @@ export const LogoArea = styled.div`
 `;
 
 export const LogoImgExpanded = styled.img`
-  width: 56px;
+  width: 48px;
   cursor: pointer;
   transition: transform .2s;
   &:hover {
