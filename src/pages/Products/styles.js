@@ -104,7 +104,11 @@ export const Stock = styled.h1`
 ` ;
 
 export const ProductIcon = styled.img`
-  width: 48px;
+  width: 60%;
+  @media (max-width: 768px) {
+    width: 48px;
+  }
+
 `;
 
 export const ProductInfo= styled.div`

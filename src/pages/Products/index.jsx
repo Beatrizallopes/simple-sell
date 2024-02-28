@@ -2,12 +2,12 @@
 import { useEffect, useState, useContext } from 'react';
 import Header from '../../components/Header';
 import {
-   Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo, Stock, EditIcon, RemoveIcon
+   Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo, Stock, EditIcon
   } from './styles';
 import Spinner from '../../components/Spinner';
 import Searchbar from "../../components/Searchbar";
 import Button from "../../components/Button";
-import { Eletronics, Fashion, House, Edit, Delete} from '../../assets/icons';
+import { Eletronics, Fashion, House, Edit} from '../../assets/icons';
 import { formatMoney } from '../../services/functions';
 import ModalAddProduct from './ModalAddProduct/index';
 import ModalEditProduct from './ModalEditProduct/index';
