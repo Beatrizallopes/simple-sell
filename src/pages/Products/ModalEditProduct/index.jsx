@@ -58,7 +58,7 @@ export default function ModalEditProduct({open, handleOpen, width, height, id, p
    async function settingDefaultStates(){
     try{
       let response = await getProductById(id);
-      if(response.success){
+      if(response.status === 200){
         const productInfo = response?.data;
         setName(productInfo?.name);
         setPrice(productInfo?.price);
@@ -98,7 +98,7 @@ export default function ModalEditProduct({open, handleOpen, width, height, id, p
               category: category.id
           }
           );
-          if(response.success){
+          if(response.status === 200){
               let newProducts = [...products];
               let productIndex = products.findIndex((element)=> element.id === id);
               newProducts[productIndex] = {
@@ -113,7 +113,7 @@ export default function ModalEditProduct({open, handleOpen, width, height, id, p
               setSnack({
                 open: true,
                 severity: 'success', 
-                message:response?.message,
+                message:'Produto editado com sucesso!',
               })
           } else {
             setSnack({

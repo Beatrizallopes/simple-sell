@@ -80,7 +80,6 @@ export default function ModalAddProduct({open, handleOpen, width, height, produc
               stock,
           }
           );
-          console.log(response);
           if(response.status === 201){
               let newProducts = [...products];
               newProducts.push({

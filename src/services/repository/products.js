@@ -79,13 +79,7 @@ export const getProducts = async () => {
 
   export const getProductById = async (id) => {
     try {
-        let productIndex = products.findIndex((product)=> product.id === id);
-        const product = products[productIndex];
-    //   const response = await api.get('/products');
-      const response = {
-        success : true,
-        data:  product,
-      }
+      const response = await api.get('/products/' + id);
       return response;
     } catch (err) {
       console.log('[getProductById]', err?.response);
@@ -96,10 +90,6 @@ export const getProducts = async () => {
   export const createProduct = async (product) => {
     try {
       const response = await api.post('/products', {...product});   
-    // const response = {
-    //     success : true,
-    //     message: 'Produto adicionado com sucesso!',
-    // }
      return response;
     } catch (err) {
       console.log('[createProduct]', err?.response);
@@ -109,11 +99,7 @@ export const getProducts = async () => {
 
   export const updateProduct = async (product) => {
     try {
-    //   const response = await api.put('/products/?id=' + product?.id, {...product});   
-    const response = {
-        success: true,
-        message: 'Produto editado com sucesso!',
-    }
+      const response = await api.put('/products/' + product?.id, {...product});   
      return response;
     } catch (err) {
       console.log('[updateProduct]', err?.response);
