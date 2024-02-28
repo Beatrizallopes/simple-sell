@@ -2,7 +2,7 @@ import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Nav = styled.nav`
-  background: var(--white);
+  background: var(--box-background);
   height: 100vh;
   // width: ${({ expanded }) => (expanded ? '15rem' : '5rem')};
   display: flex;
@@ -11,12 +11,22 @@ export const Nav = styled.nav`
   z-index: 10;
   padding-top: 24px;
   transition: width 0.5s ease-in-out;
+  @media (max-width: 768px) {
+    position: absolute;
+    width: 100vw;
+    height: 5rem;
+    bottom: 0px;
+    flex-direction: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 
 export const NavLink = styled(Link)`
   white-space: nowrap;
-  width: 90%;
+  width: 100%;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
   font-weight: 600;
@@ -28,7 +38,7 @@ export const NavLink = styled(Link)`
   align-items: center;
   justify-content: start;
   text-decoration: none;
-  font-size: 0.8rem !important;
+  font-size: 1rem !important;
   text-align: left;
   padding: 0.75rem 1.5rem;
   cursor: pointer;
@@ -41,31 +51,10 @@ export const NavLink = styled(Link)`
     background: var(--active);
     color: var(--txt-body);
   }
-`;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
 
-export const NavLinkActive = styled(Link)`
-white-space: nowrap;
-  width: 90%;
-  margin-bottom: 0.8rem;
-  letter-spacing: -0.02em;
-  font-weight: 600;
-  line-height: 150%;
-  border-radius: 10px;
-  background: var(--light-grey);
-  color: var(--txt-body);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: start;
-  text-decoration: none;
-  font-size: 0.8rem !important;
-  text-align: left;
-  padding: 0.75rem 1.5rem;
-  cursor: pointer;
-  transition: transform .2s;
-  transition: width 0.5s ease-in-out;
-  &:hover {
-    transform: scale(1.05);
   }
 `;
 
@@ -83,15 +72,22 @@ export const LogoArea = styled.div`
   width: 100%;
   align-itens: center;
   justify-content: center;
+  @media (max-width: 768px) {
+    height: 0px;
+    width: 0px;
+  }
 `;
 
 export const LogoImgExpanded = styled.img`
-  height: 36px;
+  width: 48px;
   cursor: pointer;
   transition: transform .2s;
   &:hover {
     transform: scale(1.05);
   }
+  @media screen and (max-width: 768px) {
+    display: none;
+   }
 `;
 
 export const LogoImg = styled.img`
@@ -101,6 +97,9 @@ export const LogoImg = styled.img`
   &:hover {
     transform: scale(1.05);
   }
+   @media screen and (max-width: 768px) {
+      display: none;
+     }
 `;
 
 export const NavMenu = styled.div`
@@ -109,9 +108,10 @@ export const NavMenu = styled.div`
   align-items: center;
   height: 100%;
   margin-top: 48px;
-
   @media screen and (max-width: 768px) {
-    display: none;
+    flex-direction: row;
+    margin-top: 0px;
+    justify-content: space-between;
   }
 `;
 

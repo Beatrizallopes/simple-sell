@@ -1,13 +1,7 @@
-
-
+/* eslint-disable react/prop-types */
 import { Container, Title, Subtitle } from './styles';
 
-interface HeaderProps{
-    title: string;
-    subtitle: string;
-}
-
-export default function Header({title, subtitle}: HeaderProps){
+export default function Header({title, subtitle}){
 
     return (
         <Container>

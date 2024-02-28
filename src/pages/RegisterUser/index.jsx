@@ -1,7 +1,7 @@
 import  { 
   useState,
   useContext, 
-  useEffect
+  // useEffect
 } from "react";
 import {
    Container,
@@ -15,54 +15,74 @@ import {
   import Textfield from "../../components/Textfield";
   import Button from "../../components/Button";
   import { useNavigate } from "react-router-dom";
+  import { createUser } from "../../services/repository/users";
   import LocalStorageService from '../../services/storage';
-  import { authenticateUser } from "../../services/repository/users";
   import AppContext from "../../state/App.context";
 
-export default function Login(){
+export default function RegisterUser(){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const fontSize = 16;
   let navigate = useNavigate();
-
   const localStorageService = LocalStorageService();
   const [, setSnack] = useContext(AppContext).snackState;
-  const token = localStorageService.getIdToken();
 
-  useEffect(()=>{
-    if(token){
-      navigate('/products');
-    }
-  })
-
-  async function verifyingCredentials(){
+  function verifyPasswords(){
     try{
-      const responseLogin = await authenticateUser({e_mail: email, user_password: password});
-      if(responseLogin.success){
-       await Promise.all([
-          localStorageService.setToken({ token: responseLogin?.data?.token }),
-          localStorageService.setUserInfo({
-            email,
-          }),
-        ]);
-        navigate('/products');
-        setSnack({
-          open: true,
-          severity: 'success', 
-          message:responseLogin?.message,
-        });
-      } else {
-        setSnack({
-          open: true,
-          severity: 'error', 
-          message:responseLogin?.message,
-        })
+      let passwordsMatch = false;
+      if(password === confirmPassword){
+        passwordsMatch = true;
       }
+      return passwordsMatch;
     } catch(err){
       console.log(err);
     }
   }
 
+  async function registeringUser(){
+    try{
+      setLoading(true);
+      if(email !== '' && password !== '' && confirmPassword !== ''){
+        if(verifyPasswords()){
+          const response = await createUser(email, password);
+          if(response.success){
+            setSnack({
+              open: true,
+              severity: 'success', 
+              message:response?.message,
+            });
+            navigate('/');
+          } else {
+            setSnack({
+              open: true,
+              severity: 'error', 
+              message:response?.message,
+            })
+          }
+        } else {
+          setSnack({
+            open: true,
+            severity: 'error', 
+            message:'As senhas devem ser iguais',
+          })
+        }
+      } else {
+        setSnack({
+          open: true,
+          severity: 'error', 
+          message:'Todos os campos devem ser preenchidos',
+        })
+      }
+      
+      
+    } catch(err){
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  }
 
     return (
       <Container>
@@ -94,26 +114,38 @@ export default function Login(){
               password={true}
             ></Textfield>
         </Row>
+        <Row>
+            <Textfield
+              label="Confirme a senha"
+              width="100%"
+              disabled={false} 
+              value={confirmPassword} 
+              fontSize={fontSize} 
+              onChange={setConfirmPassword}
+              multiline={false}
+              password={true}
+            ></Textfield>
+        </Row>
         <RowButton>
           <Button
-            label="Entrar no sistema" 
+            label="Cadastrar novo usuário" 
             background="var(--blue)" 
             color="var(--background)" 
             borderColor="var(--blue)" 
             disabled={false} 
-            onClick={()=> {verifyingCredentials()}}
+            onClick={()=> {registeringUser()}}
             fontSize='1rem'
             width="300px"
           ></Button>
         </RowButton>
         <RowButton style={{ marginTop: '4%'}}>
           <Button
-            label="Cadastrar usuário" 
+            label="<  Voltar para Login" 
             background="var(--background)" 
             color="var(--txt-title)" 
             borderColor="var(--txt-title)" 
             disabled={false} 
-            onClick={()=> { navigate('/register')}}
+            onClick={()=> { navigate('/')}}
             fontSize='1rem'
             width="300px"
           ></Button> 
