@@ -3,7 +3,8 @@ export const createUser = async (user) => {
     try {
     //   const response = await api.post('/users', {...user});    
       const response = {
-        status: 201,
+        success: true,
+        message: 'Usuário criado com sucesso!'
       }
      return response;
     } catch (err) {
@@ -17,10 +18,11 @@ export const createUser = async (user) => {
       const payload = {user, password};
     //   const response = await api.post('/login', payload);
       const response = {
-        status: 200,
+        success: true,
         data: {
-          token: 'token123',
-        }
+          token: '123'
+        },
+        message: 'Login efetuado com sucesso!',
       }
       return response;
     } catch (err) {

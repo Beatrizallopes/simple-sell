@@ -1,28 +1,27 @@
 /* eslint-disable react/prop-types */
-// import React, {useContext, useEffect} from 'react';
-// import Snackbar from '@material-ui/core/Snackbar';
-// import MuiAlert from '@material-ui/lab/Alert';
-// import AppContext from '../state/App.context';
-import { red } from '@material-ui/core/colors';
+import React, {useContext, useEffect} from 'react';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import AppContext from '../state/App.context';
 import { Menu } from '../components/Menu';
 // import './Base.css';
 
-// function Alert(props){
-//     return <MuiAlert elevation={6} variant="filled" {...props}/>
-// }
+function Alert(props){
+    return <MuiAlert elevation={6} variant="filled" {...props}/>
+}
 
 function Base({children}){
-    // const [snack, setSnack] = useContext(AppContext).snackState;
+    const [snack, setSnack] = useContext(AppContext).snackState;
 
-    // const handleClose = (event, reason) => {
-    //     if(reason === 'clickaway'){
-    //         return;
-    //     };
-    //     setSnack({
-    //         ... snack,
-    //         open: false,
-    //     })
-    // }
+    const handleClose = (event, reason) => {
+        if(reason === 'clickaway'){
+            return;
+        };
+        setSnack({
+            ... snack,
+            open: false,
+        })
+    }
 
     return (
         <div style={{
@@ -36,11 +35,11 @@ function Base({children}){
             overflow: 'hidden',}}>
             <Menu></Menu>
             {children}
-            {/* <Snackbar open={snack.open} autoHideDuration={5000} onClose={handleClose}>
+            <Snackbar open={snack.open} autoHideDuration={5000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity={snack.severity}>
                     {snack.message}
                 </Alert>
-            </Snackbar> */}
+            </Snackbar>
         </div>
     )
 }
