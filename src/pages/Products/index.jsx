@@ -230,6 +230,7 @@ function Products(){
           width={700} 
           height={330} 
           product={selectedProduct.info}
+          id={selectedProduct?.info?.id}
          ></ModalEditProduct>
       </Container>
     );

@@ -31,7 +31,7 @@ const categories = [
   },
 ]
 
-export default function ModalAddCostCenter({open, handleOpen, width, height, products, setProducts}){
+export default function ModalAddProduct({open, handleOpen, width, height, products, setProducts}){
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState(0);
