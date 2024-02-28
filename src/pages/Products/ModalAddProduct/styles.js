@@ -12,6 +12,9 @@ export const Container = styled.div`
     max-height: 90vh;
     height: auto !important;
     width: auto !important;
+    @media (max-width: 768px) {
+        width: 90% !important;
+      }
     ` ;
 
 export const Header  = styled.div`

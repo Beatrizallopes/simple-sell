@@ -29,6 +29,7 @@ export function Menu() {
   const LogoToShow = menuExpanded ? LogoExpanded : LogoSmall;
   const localStorageService = LocalStorageService();
   const isAuthenticated = !!localStorage.getItem('token');
+  const isMobile = window.innerWidth < 768;
 
   const url = getCurrentURL();
 
@@ -41,6 +42,24 @@ export function Menu() {
       path: '/products',
     },
   ]
+
+  const pagesMobile = [
+    
+    {
+      label: 'Produtos',
+      icon: Products,
+      iconSelected: ProductsSelected,
+      path: '/products',
+    },
+    {
+      label: 'Sair',
+      icon: Logout,
+      iconSelected: Logout,
+      path: '/',
+    },
+  ]
+
+  const pagesToShow = isMobile ? pagesMobile : pages;
 
 
   function MenuItem({page, index}){
@@ -93,14 +112,14 @@ export function Menu() {
       </LogoArea>
       <NavMenu>
       {
-      pages.map((page, index)=>{
+      pagesToShow.map((page, index)=>{
         return (
         <MenuItem page={page} index={index} key={page.label}></MenuItem>
         )
       })
       }
     </NavMenu>
-    <LogoutItem/>
+    {!isMobile &&   <LogoutItem/>}
    </Nav>
   )
-};
+}

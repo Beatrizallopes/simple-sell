@@ -1,10 +1,10 @@
 import { GlobalStyle } from "./styles/global";
 import Modal from 'react-modal';
 import { BrowserRouter as Router , Routes, Route} from "react-router-dom";
-import { useState } from 'react'
+// import { useState } from 'react'
 import './App.css'
 
-import ProtectedRoute from './routes/ProtectedRoute';
+// import ProtectedRoute from './routes/ProtectedRoute';
 import styled from 'styled-components';
 import Base from './Base';
 

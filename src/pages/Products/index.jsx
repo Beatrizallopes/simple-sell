@@ -60,6 +60,24 @@ const productsMocked = [
     createdAt: new Date(),
     category: 'moda'
   },
+  {
+    id: 6,
+    name: 'Bolsa azul',
+    price: 200,
+    stock: 15,
+    lastUpdated: new Date(),
+    createdAt: new Date(),
+    category: 'moda'
+  },
+  {
+    id: 7,
+    name: 'Boné',
+    price: 200,
+    stock: 15,
+    lastUpdated: new Date(),
+    createdAt: new Date(),
+    category: 'moda'
+  },
 ]
 
 
@@ -69,6 +87,7 @@ function Products(){
   const [loading, setLoading] = useState(false);
   const [openModalAddProduct, setOpenModalAddProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({open: false, mode: '', info: {}});
+  const isMobile = window.innerWidth < 768;
 
   let productsToShow = [...products];
 
@@ -155,14 +174,15 @@ function Products(){
               disabled={false} 
               onClick={()=> {setOpenModalAddProduct(true)}}
               fontSize="0.8rem"
+              width={isMobile ? 300: 200}
               ></Button>
           <Searchbar 
             value={search} 
             onChange={setSearch} 
             disabled={false}
-            width={280} 
             placeholder="Buscar produto..." 
             fontSize={'0.8rem'} 
+            width={isMobile ? 300: 200}
             ></Searchbar>
           </Row>
           {renderContent()};

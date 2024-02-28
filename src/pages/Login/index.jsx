@@ -80,7 +80,7 @@ export default function Login(){
         <Row>
           <Textfield
             label="E-mail"
-            width={400}
+            width={'100%'}
             disabled={false} 
             value={email} 
             fontSize={fontSize} 
@@ -92,7 +92,7 @@ export default function Login(){
           <Row>
             <Textfield
               label="Senha"
-              width={400}
+              width={'100%'}
               disabled={false} 
               value={password} 
               fontSize={fontSize} 
@@ -110,6 +110,7 @@ export default function Login(){
             disabled={false} 
             onClick={()=> {verifyingCredentials()}}
             fontSize='1rem'
+            width="300px"
           ></Button>
         </RowButton>
         <RowButton style={{ marginTop: '4%'}}>
@@ -121,6 +122,7 @@ export default function Login(){
             disabled={false} 
             onClick={()=> { navigate('/register')}}
             fontSize='1rem'
+            width="300px"
           ></Button> 
         </RowButton>
         </Box>
