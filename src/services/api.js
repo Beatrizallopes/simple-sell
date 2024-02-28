@@ -6,8 +6,6 @@ const localStorageService = LocalStorageService();
 
 let retry = false;
 
-axios.defaults.timeout = 15000; // Configurando timeout de 10 segundos
-
 const api = axios.create({
     baseURL: process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000/api',
     params: {
@@ -39,7 +37,6 @@ api.interceptors.request.use(
     (response) => response,
     async (err) => {
       const originalRequest = err.config;
-      console.log('Erro:', err.response.status);
       if (err.response.status === 500) {
         retry = false;
       }

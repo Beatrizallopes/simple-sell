@@ -1,6 +1,7 @@
 import { GlobalStyle } from "./styles/global";
 import Modal from 'react-modal';
 import { BrowserRouter as Router , Routes, Route} from "react-router-dom";
+import {Provider} from "./state/App.context";
 // import { useState } from 'react'
 import './App.css'
 
@@ -25,7 +26,7 @@ Modal.setAppElement('#root');
 
 export default function App() {
   return (
-    <>
+    <Provider>
     <Router>
     <Base>
       <Root>
@@ -38,7 +39,7 @@ export default function App() {
         </Base>
     </Router>
 <GlobalStyle /> 
-</>
+</Provider>
   )
 }
 

@@ -1,99 +1,58 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Header from '../../components/Header';
 import {
-   Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo, Stock, EditIcon, RemoveIcon
+   Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo, Stock, EditIcon
   } from './styles';
 import Spinner from '../../components/Spinner';
 import Searchbar from "../../components/Searchbar";
 import Button from "../../components/Button";
-import { Eletronics, Fashion, House, Edit, Delete} from '../../assets/icons';
+import { Eletronics, Fashion, House, Edit} from '../../assets/icons';
 import { formatMoney } from '../../services/functions';
 import ModalAddProduct from './ModalAddProduct/index';
 import ModalEditProduct from './ModalEditProduct/index';
 import Tooltip from '@mui/material/Tooltip';
-
-
-const productsMocked = [
-  {
-    id: 1,
-    name: 'Iphone 11',
-    price: 5000,
-    stock: 13,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'eletrônicos'
-  },
-  {
-    id: 2,
-    name: 'Iphone 12',
-    price: 7000,
-    stock: 30,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'eletrônicos'
-  },
-  {
-    id: 3,
-    name: 'Aspirador de pó',
-    price: 800,
-    stock: 2,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'casa'
-  },
-  {
-    id: 4,
-    name: 'Air Fryer',
-    price: 1200,
-    stock: 100,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'casa'
-  },  
-  {
-    id: 5,
-    name: 'Salto alto',
-    price: 200,
-    stock: 15,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'moda'
-  },
-  {
-    id: 6,
-    name: 'Bolsa azul',
-    price: 200,
-    stock: 15,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'moda'
-  },
-  {
-    id: 7,
-    name: 'Boné',
-    price: 200,
-    stock: 15,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'moda'
-  },
-]
-
+import { getProducts } from '../../services/repository/products';
+import AppContext from "../../state/App.context";
 
 function Products(){
-  const [products, setProducts] = useState(productsMocked)
+  const [products, setProducts] = useState([])
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [openModalAddProduct, setOpenModalAddProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({open: false, mode: '', info: {}});
   const isMobile = window.innerWidth < 768;
+  const [, setSnack] = useContext(AppContext).snackState;
 
   let productsToShow = [...products];
 
   if(search.length > 0){
     productsToShow = productsToShow.filter(a => a.name.toLowerCase().includes(search.toLowerCase()));
   }
+
+  async function gettingProducts(){
+    try{
+      const response = await getProducts();
+      if(response.success){
+        setProducts(response?.data);
+      } else {
+        setSnack({
+          open: true,
+          severity: 'error', 
+          message:response?.message,
+        })
+      }
+    } catch(err){
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(()=>{
+    gettingProducts()
+  }, [])
+
 
   function Product({product}){
     let icon = Eletronics;
@@ -103,6 +62,7 @@ function Products(){
     if(product?.category === 'casa'){
       icon = House;
     }
+
     return (
       <ProductBox>
         <ProductIcon src={icon}></ProductIcon>
@@ -116,7 +76,7 @@ function Products(){
           })}
           ></EditIcon>
         </Tooltip>
-        <Tooltip title='Deletar produto'>
+        {/* <Tooltip title='Deletar produto'>
           <RemoveIcon 
           src={Delete}
           onClick={()=>setSelectedProduct({
@@ -125,7 +85,7 @@ function Products(){
             info: {...product}
           })}
           ></RemoveIcon>
-        </Tooltip>
+        </Tooltip> */}
         <ProductInfo>
           <Name>{product?.name}</Name>
           <Price>{formatMoney(product?.price)}</Price>
@@ -192,13 +152,17 @@ function Products(){
           handleOpen={setOpenModalAddProduct} 
           width={700} 
           height={330} 
+          products={products}
+          setProducts={setProducts}
          ></ModalAddProduct>
         <ModalEditProduct 
           open={selectedProduct.open} 
           handleOpen={setSelectedProduct} 
           width={700} 
           height={330} 
-          product={selectedProduct.info}
+          id={selectedProduct?.info?.id}
+          products={products}
+          setProducts={setProducts}
          ></ModalEditProduct>
       </Container>
     );

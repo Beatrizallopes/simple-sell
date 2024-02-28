@@ -2,9 +2,8 @@
 import { 
   useEffect,
   // FormEvent, 
-  // useEffect, 
   useState, 
-  // useContext
+  useContext
 } from "react";
 import Button from "../../../components/Button";
 import Textfield from "../../../components/Textfield";
@@ -14,7 +13,8 @@ import {Close} from '../../../assets/icons/index';
 import Spinner from "../../../components/Spinner";
 import Numberfield from "../../../components/Numberfield";
 import Autocomplete from "../../../components/Autocomplete";
-// import AppContext from "../../../state/App.context";
+import AppContext from "../../../state/App.context";
+import { getProductById, updateProduct} from "../../../services/repository/products";
 
 const categories = [
   {
@@ -31,7 +31,7 @@ const categories = [
   },
 ]
 
-export default function ModalAddCostCenter({open, handleOpen, width, height, product}){
+export default function ModalEditProduct({open, handleOpen, width, height, id, products, setProducts}){
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState(0);
@@ -39,38 +39,40 @@ export default function ModalAddCostCenter({open, handleOpen, width, height, pro
     const fontSize = 14;
     const [loading, setLoading] = useState(true);
     const isMobile = window.innerWidth < 768;
-
-    // const [, setSnack] = useContext(AppContext).snackState;
+    const [, setSnack] = useContext(AppContext).snackState;
 
     const title = 'Editar produto';
 
-  //   function cleanAllInputs(){
-  //     try{
-  //         setName('');
-  //     } catch(err){
-  //          console.log(err);
-  //     }
-  // }
+  function checkingRequiredFields() {
+    if (name === '' || !price  || !stock || !category.id ) {
+      setSnack({
+        open: true,
+        severity: 'error', 
+        message: 'Preencha todos os campos necessários!',
+      });
+      return false;
+    }
+    return true;
+  }
 
-  // function checkingRequiredFields() {
-  //   if (!name || !price) {
-  //     setSnack({
-  //       open: true,
-  //       severity: 'error', 
-  //       message: 'Preencha todos os campos necessários!',
-  //     });
-  //     return false;
-  //   }
-  //   return true;
-  // }
-
-   function settingDefaultStates(){
+   async function settingDefaultStates(){
     try{
-      setLoading(true);
-      setName(product?.name);
-      setPrice(product?.price);
-      setStock(product?.stock);
-      setLoading(false);
+      let response = await getProductById(id);
+      if(response.success){
+        const productInfo = response?.data;
+        setName(productInfo?.name);
+        setPrice(productInfo?.price);
+        setStock(productInfo?.stock);
+        let categoryIndex = categories.findIndex((element)=> element?.id === productInfo?.category);
+        setCategory(categories[categoryIndex]);
+      } else {
+        setSnack({
+          open: true,
+          severity: 'error', 
+          message:response?.message,
+        })
+      }
+
     } catch(err){
       console.log(err);
     } finally {
@@ -79,38 +81,48 @@ export default function ModalAddCostCenter({open, handleOpen, width, height, pro
   }
 
   useEffect(()=>{
-    settingDefaultStates();
-  }, [])
+    if(open) settingDefaultStates();
+  }, [open])
 
     async function handleEditProduct(event){
       try{
         setLoading(true);
         event.preventDefault();
-        console.log('Criando...')
-        console.log('Criado');
-        // if(checkingRequiredFields()){
-        //   const response = await createCostCenter(
-        //       {
-        //       name,
-        //       description,
-        //   }
-        //   );
-        //   if(response.success){
-        //       cleanAllInputs();
-        //       handleOpen(false);
-        //       setSnack({
-        //         open: true,
-        //         severity: 'success', 
-        //         message:response?.message,
-        //       })
-        //   } else {
-        //     setSnack({
-        //       open: true,
-        //       severity: 'error', 
-        //       message:'Ocorreu um erro no cadastro. Tente novamente ou entre em contato com a equipe técnica.',
-        //     })
-        //   }
-      // }
+        if(checkingRequiredFields()){
+          const response = await updateProduct(
+              {
+              id,
+              name,
+              price,
+              stock,
+              category: category.id
+          }
+          );
+          if(response.success){
+              let newProducts = [...products];
+              let productIndex = products.findIndex((element)=> element.id === id);
+              newProducts[productIndex] = {
+                id,
+                name,
+                price,
+                stock,
+                category: category.id
+              };
+              setProducts([...newProducts])
+              handleOpen(false);
+              setSnack({
+                open: true,
+                severity: 'success', 
+                message:response?.message,
+              })
+          } else {
+            setSnack({
+              open: true,
+              severity: 'error', 
+              message:'Ocorreu um erro na edição. Tente novamente ou entre em contato com a equipe técnica.',
+            })
+          }
+      }
       } catch(err){
         console.log(err);
       } finally{

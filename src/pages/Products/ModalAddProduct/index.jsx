@@ -3,7 +3,7 @@ import {
   // FormEvent, 
   // useEffect, 
   useState, 
-  // useContext
+  useContext
 } from "react";
 import Button from "../../../components/Button";
 import Textfield from "../../../components/Textfield";
@@ -13,7 +13,8 @@ import {Close} from '../../../assets/icons/index';
 import Spinner from "../../../components/Spinner";
 import Numberfield from "../../../components/Numberfield";
 import Autocomplete from "../../../components/Autocomplete";
-// import AppContext from "../../../state/App.context";
+import AppContext from "../../../state/App.context";
+import { createProduct } from "../../../services/repository/products";
 
 const categories = [
   {
@@ -30,7 +31,7 @@ const categories = [
   },
 ]
 
-export default function ModalAddCostCenter({open, handleOpen, width, height}){
+export default function ModalAddProduct({open, handleOpen, width, height, products, setProducts}){
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState(0);
@@ -39,58 +40,70 @@ export default function ModalAddCostCenter({open, handleOpen, width, height}){
     const [loading, setLoading] = useState(false);
     const isMobile = window.innerWidth < 768;
 
-    // const [, setSnack] = useContext(AppContext).snackState;
+    const [, setSnack] = useContext(AppContext).snackState;
 
     const title = 'Adicionar novo produto';
 
-  //   function cleanAllInputs(){
-  //     try{
-  //         setName('');
-  //     } catch(err){
-  //          console.log(err);
-  //     }
-  // }
+    function cleanAllInputs(){
+      try{
+          setName('');
+          setPrice(0);
+          setStock(0);
+          setCategory(categories[0])
+      } catch(err){
+           console.log(err);
+      }
+  }
 
-  // function checkingRequiredFields() {
-  //   if (!name || !price) {
-  //     setSnack({
-  //       open: true,
-  //       severity: 'error', 
-  //       message: 'Preencha todos os campos necessários!',
-  //     });
-  //     return false;
-  //   }
-  //   return true;
-  // }
+  function checkingRequiredFields() {
+    if (name === '' || !price  || !stock || !category.id ) {
+      setSnack({
+        open: true,
+        severity: 'error', 
+        message: 'Preencha todos os campos necessários!',
+      });
+      return false;
+    }
+    return true;
+  }
 
     async function handleCreateNewProduct(event){
       try{
         setLoading(true);
         event.preventDefault();
-        console.log('Criado');
-        // if(checkingRequiredFields()){
-        //   const response = await createCostCenter(
-        //       {
-        //       name,
-        //       description,
-        //   }
-        //   );
-        //   if(response.success){
-        //       cleanAllInputs();
-        //       handleOpen(false);
-        //       setSnack({
-        //         open: true,
-        //         severity: 'success', 
-        //         message:response?.message,
-        //       })
-        //   } else {
-        //     setSnack({
-        //       open: true,
-        //       severity: 'error', 
-        //       message:'Ocorreu um erro no cadastro. Tente novamente ou entre em contato com a equipe técnica.',
-        //     })
-        //   }
-      // }
+        if(checkingRequiredFields()){
+          const response = await createProduct(
+              {
+              name,
+              price,
+              category: category?.id,
+              stock,
+          }
+          );
+          if(response.success){
+              let newProducts = [...products];
+              newProducts.push({
+                name,
+                price,
+                category: category?.id,
+                stock,
+              })
+              setProducts(newProducts);
+              cleanAllInputs();
+              handleOpen(false);
+              setSnack({
+                open: true,
+                severity: 'success', 
+                message:response?.message,
+              })
+          } else {
+            setSnack({
+              open: true,
+              severity: 'error', 
+              message:'Ocorreu um erro no cadastro. Tente novamente ou entre em contato com a equipe técnica.',
+            })
+          }
+      }
       } catch(err){
         console.log(err);
       } finally{

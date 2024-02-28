@@ -1,6 +1,6 @@
 import  { 
   useState,
-  // useContext, 
+  useContext, 
   useEffect
 } from "react";
 import {
@@ -16,17 +16,17 @@ import {
   import Button from "../../components/Button";
   import { useNavigate } from "react-router-dom";
   import LocalStorageService from '../../services/storage';
-  // import AppContext from "../../state/App.context";
+  import { authenticateUser } from "../../services/repository/users";
+  import AppContext from "../../state/App.context";
 
 export default function Login(){
-  // const { authenticateUser } = UseUsers();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const fontSize = 16;
   let navigate = useNavigate();
 
   const localStorageService = LocalStorageService();
-  // const [, setSnack] = useContext(AppContext).snackState;
+  const [, setSnack] = useContext(AppContext).snackState;
   const token = localStorageService.getIdToken();
 
   useEffect(()=>{
@@ -37,14 +37,7 @@ export default function Login(){
 
   async function verifyingCredentials(){
     try{
-      // const responseLogin = await authenticateUser({e_mail: email, user_password: password});
-      const responseLogin = {
-        success: true,
-        data: {
-          token: '123'
-        },
-        message: 'Login efetuado com sucesso!',
-      }
+      const responseLogin = await authenticateUser({e_mail: email, user_password: password});
       if(responseLogin.success){
        await Promise.all([
           localStorageService.setToken({ token: responseLogin?.data?.token }),
@@ -53,17 +46,17 @@ export default function Login(){
           }),
         ]);
         navigate('/products');
-        // setSnack({
-        //   open: true,
-        //   severity: 'success', 
-        //   message:responseLogin?.message,
-        // });
+        setSnack({
+          open: true,
+          severity: 'success', 
+          message:responseLogin?.message,
+        });
       } else {
-        // setSnack({
-        //   open: true,
-        //   severity: 'error', 
-        //   message:responseLogin?.message,
-        // })
+        setSnack({
+          open: true,
+          severity: 'error', 
+          message:responseLogin?.message,
+        })
       }
     } catch(err){
       console.log(err);

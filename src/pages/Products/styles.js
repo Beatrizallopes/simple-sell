@@ -104,7 +104,11 @@ export const Stock = styled.h1`
 ` ;
 
 export const ProductIcon = styled.img`
-  width: 48px;
+  width: 60%;
+  @media (max-width: 768px) {
+    width: 48px;
+  }
+
 `;
 
 export const ProductInfo= styled.div`
@@ -131,7 +135,7 @@ export const EditIcon = styled.img`
   height: 1rem;
   position: absolute;
   top: 1rem;
-  right: 2.5rem;
+  right: 1rem;
   cursor: pointer;
   transition: transform .2s;
     &:hover {
