@@ -10,6 +10,7 @@ import Base from './Base';
 
 import  Login  from './pages/Login/index';
 import Products from "./pages/Products";
+import RegisterUser from "./pages/RegisterUser";
 
 const Root = styled.div`
   display: flex;
@@ -31,7 +32,7 @@ export default function App() {
         <Routes>
             <Route path='/' element={<Login />} />
             <Route path='/products' element={<Products />} />
-            {/* <Route path='/register' element={<RegisterUser />} /> */}
+            <Route path='/register' element={<RegisterUser />} />
         </Routes>
         </Root>
         </Base>
