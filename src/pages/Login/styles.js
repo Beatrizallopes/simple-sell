@@ -13,12 +13,14 @@ justify-content: center;
 
 export const Box = styled.div`
 height: auto;
-// border: 0.5px solid var(--txt-subtitle);
 padding: 3%;
 border-radius:10px;
 display: flex;
 flex-direction: column;
 align-items: center;
+@media (max-width: 768px) {
+  width: 90%;
+}
 `;
 
 export const LogoRow = styled.div`
@@ -34,6 +36,9 @@ export const LogoImg = styled.img`
   &:hover {
     transform: scale(1.05);
   }
+  @media (max-width: 768px) {
+    height: 10rem;
+  }
 `;
 
 export const Row = styled.div`
@@ -41,6 +46,10 @@ export const Row = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 300px;
+    // @media (max-width: 768px) {
+    //   width: 100%;
+    // }
 `;
 
 export const RowButton = styled.div`

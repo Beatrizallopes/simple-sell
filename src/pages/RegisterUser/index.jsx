@@ -1,7 +1,7 @@
 import  { 
   useState,
   // useContext, 
-  useEffect
+  // useEffect
 } from "react";
 import {
    Container,
@@ -15,7 +15,7 @@ import {
   import Textfield from "../../components/Textfield";
   import Button from "../../components/Button";
   import { useNavigate } from "react-router-dom";
-  import LocalStorageService from '../../services/storage';
+  // import LocalStorageService from '../../services/storage';
   // import AppContext from "../../state/App.context";
 
 export default function RegisterUser(){
@@ -35,7 +35,7 @@ export default function RegisterUser(){
         <Row>
           <Textfield
             label="E-mail"
-            width={400}
+            width={'100%'}
             disabled={false} 
             value={email} 
             fontSize={fontSize} 
@@ -47,7 +47,7 @@ export default function RegisterUser(){
           <Row>
             <Textfield
               label="Senha"
-              width={400}
+              width={'100%'}
               disabled={false} 
               value={password} 
               fontSize={fontSize} 
@@ -59,7 +59,7 @@ export default function RegisterUser(){
         <Row>
             <Textfield
               label="Confirme a senha"
-              width={400}
+              width="100%"
               disabled={false} 
               value={confirmPassword} 
               fontSize={fontSize} 
@@ -77,6 +77,7 @@ export default function RegisterUser(){
             disabled={false} 
             onClick={()=> {}}
             fontSize='1rem'
+            width="300px"
           ></Button>
         </RowButton>
         <RowButton style={{ marginTop: '4%'}}>
@@ -88,6 +89,7 @@ export default function RegisterUser(){
             disabled={false} 
             onClick={()=> { navigate('/')}}
             fontSize='1rem'
+            width="300px"
           ></Button> 
         </RowButton>
         </Box>
