@@ -13,9 +13,13 @@ export const Nav = styled.nav`
   transition: width 0.5s ease-in-out;
   @media (max-width: 768px) {
     position: absolute;
-    width: 100%;
+    width: 100vw;
     height: 5rem;
     bottom: 0px;
+    flex-direction: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 
@@ -47,6 +51,11 @@ export const NavLink = styled(Link)`
     background: var(--active);
     color: var(--txt-body);
   }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+
+  }
 `;
 
 
@@ -63,6 +72,10 @@ export const LogoArea = styled.div`
   width: 100%;
   align-itens: center;
   justify-content: center;
+  @media (max-width: 768px) {
+    height: 0px;
+    width: 0px;
+  }
 `;
 
 export const LogoImgExpanded = styled.img`
@@ -72,6 +85,9 @@ export const LogoImgExpanded = styled.img`
   &:hover {
     transform: scale(1.05);
   }
+  @media screen and (max-width: 768px) {
+    display: none;
+   }
 `;
 
 export const LogoImg = styled.img`
@@ -81,6 +97,9 @@ export const LogoImg = styled.img`
   &:hover {
     transform: scale(1.05);
   }
+   @media screen and (max-width: 768px) {
+      display: none;
+     }
 `;
 
 export const NavMenu = styled.div`
@@ -89,9 +108,10 @@ export const NavMenu = styled.div`
   align-items: center;
   height: 100%;
   margin-top: 48px;
-
   @media screen and (max-width: 768px) {
-    display: none;
+    flex-direction: row;
+    margin-top: 0px;
+    justify-content: space-between;
   }
 `;
 
