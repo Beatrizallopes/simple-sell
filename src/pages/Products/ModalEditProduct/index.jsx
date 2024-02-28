@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { 
+  useEffect,
   // FormEvent, 
   // useEffect, 
   useState, 
@@ -30,17 +31,17 @@ const categories = [
   },
 ]
 
-export default function ModalAddCostCenter({open, handleOpen, width, height}){
+export default function ModalAddCostCenter({open, handleOpen, width, height, product}){
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState(0);
     const [category, setCategory] = useState(categories[0])
     const fontSize = 14;
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
   
     // const [, setSnack] = useContext(AppContext).snackState;
 
-    const title = 'Adicionar novo produto';
+    const title = 'Editar produto';
 
   //   function cleanAllInputs(){
   //     try{
@@ -62,10 +63,29 @@ export default function ModalAddCostCenter({open, handleOpen, width, height}){
   //   return true;
   // }
 
-    async function handleCreateNewProduct(event){
+   function settingDefaultStates(){
+    try{
+      setLoading(true);
+      setName(product?.name);
+      setPrice(product?.price);
+      setStock(product?.stock);
+      setLoading(false);
+    } catch(err){
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(()=>{
+    settingDefaultStates();
+  }, [])
+
+    async function handleEditProduct(event){
       try{
         setLoading(true);
         event.preventDefault();
+        console.log('Criando...')
         console.log('Criado');
         // if(checkingRequiredFields()){
         //   const response = await createCostCenter(
@@ -163,7 +183,7 @@ export default function ModalAddCostCenter({open, handleOpen, width, height}){
                     color="var(--background)" 
                     borderColor="var(--blue)" 
                     disabled={false} 
-                    onClick={handleCreateNewProduct}
+                    onClick={handleEditProduct}
                     fontSize="0.8rem"
                     ></Button>
                 </Row>

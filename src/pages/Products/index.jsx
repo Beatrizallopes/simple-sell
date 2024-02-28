@@ -2,14 +2,17 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header';
 import {
-   Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo, Stock,
+   Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo, Stock, EditIcon, RemoveIcon
   } from './styles';
 import Spinner from '../../components/Spinner';
 import Searchbar from "../../components/Searchbar";
 import Button from "../../components/Button";
-import { Eletronics, Fashion, House } from '../../assets/icons';
+import { Eletronics, Fashion, House, Edit, Delete} from '../../assets/icons';
 import { formatMoney } from '../../services/functions';
 import ModalAddProduct from './ModalAddProduct/index';
+import ModalEditProduct from './ModalEditProduct/index';
+import Tooltip from '@mui/material/Tooltip';
+
 
 const productsMocked = [
   {
@@ -65,7 +68,7 @@ function Products(){
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [openModalAddProduct, setOpenModalAddProduct] = useState(false);
-
+  const [selectedProduct, setSelectedProduct] = useState({open: false, mode: '', info: {}});
 
   let productsToShow = [...products];
 
@@ -84,6 +87,26 @@ function Products(){
     return (
       <ProductBox>
         <ProductIcon src={icon}></ProductIcon>
+        <Tooltip title='Editar produto'>
+          <EditIcon 
+            src={Edit} 
+            onClick={()=>setSelectedProduct({
+            open: true,
+            mode: 'edit',
+            info: {...product}
+          })}
+          ></EditIcon>
+        </Tooltip>
+        <Tooltip title='Deletar produto'>
+          <RemoveIcon 
+          src={Delete}
+          onClick={()=>setSelectedProduct({
+            open: true,
+            mode: 'delete',
+            info: {...product}
+          })}
+          ></RemoveIcon>
+        </Tooltip>
         <ProductInfo>
           <Name>{product?.name}</Name>
           <Price>{formatMoney(product?.price)}</Price>
@@ -145,14 +168,21 @@ function Products(){
           {renderContent()};
         </Content>
         <ModalAddProduct 
-         open={openModalAddProduct} 
-         handleOpen={setOpenModalAddProduct} 
-         width={700} 
-         height={330} 
+          open={openModalAddProduct} 
+          handleOpen={setOpenModalAddProduct} 
+          width={700} 
+          height={330} 
          ></ModalAddProduct>
+        <ModalEditProduct 
+          open={selectedProduct.open} 
+          handleOpen={setSelectedProduct} 
+          width={700} 
+          height={330} 
+          product={selectedProduct.info}
+         ></ModalEditProduct>
       </Container>
     );
-  };
+  }
 
   // export default React.createElement(Products);
   export default Products;

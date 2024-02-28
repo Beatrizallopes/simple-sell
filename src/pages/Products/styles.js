@@ -55,6 +55,7 @@ column-gap: 0.8rem;
 `;
 
 export const ProductBox = styled.div`
+    position: relative;
     background-color: var(--box-background);
     width: 100%;
     border-radius: 1rem;
@@ -63,11 +64,7 @@ export const ProductBox = styled.div`
     grid-template-columns: 1fr 3fr;
     align-items: center;
     padding: 1rem 1.5rem;
-    cursor: pointer;
-    transition: transform .2s;
-    &:hover {
-      transform: scale(1.03);
-    }
+
 `;
 
 export const Name = styled.h1`
@@ -104,4 +101,27 @@ export const ProductInfo= styled.div`
     flex-direction: column;
     align-items: start;
     justify-content: flex-start;
+`;
+
+export const RemoveIcon = styled.img`
+  height: 1rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  transition: transform .2s;
+    &:hover {
+      transform: scale(1.03);
+    }
+`;
+export const EditIcon = styled.img`
+  height: 1rem;
+  position: absolute;
+  top: 1rem;
+  right: 2.5rem;
+  cursor: pointer;
+  transition: transform .2s;
+    &:hover {
+      transform: scale(1.03);
+    }
 `;
