@@ -47,9 +47,6 @@ export const Row = styled.div`
     align-items: center;
     justify-content: center;
     width: 300px;
-    // @media (max-width: 768px) {
-    //   width: 100%;
-    // }
 `;
 
 export const RowButton = styled.div`

@@ -11,6 +11,12 @@ export const Nav = styled.nav`
   z-index: 10;
   padding-top: 24px;
   transition: width 0.5s ease-in-out;
+  @media (max-width: 768px) {
+    position: absolute;
+    width: 100%;
+    height: 5rem;
+    bottom: 0px;
+  }
 `;
 
 

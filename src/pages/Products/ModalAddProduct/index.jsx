@@ -37,7 +37,8 @@ export default function ModalAddCostCenter({open, handleOpen, width, height}){
     const [category, setCategory] = useState(categories[0])
     const fontSize = 14;
     const [loading, setLoading] = useState(false);
-  
+    const isMobile = window.innerWidth < 768;
+
     // const [, setSnack] = useContext(AppContext).snackState;
 
     const title = 'Adicionar novo produto';
@@ -110,7 +111,7 @@ export default function ModalAddCostCenter({open, handleOpen, width, height}){
                 <Row>
                     <Textfield
                     label="Nome do produto"
-                    width={400}
+                    width={isMobile ? '100%': 400}
                     disabled={false} 
                     value={name} 
                     fontSize={fontSize} 
@@ -121,7 +122,7 @@ export default function ModalAddCostCenter({open, handleOpen, width, height}){
                 <Row>
                 <Autocomplete
                   value={category}
-                  width={400}
+                  width={isMobile ? '100%': 400}
                   disabled={false}
                   options={categories}
                   fontSize={fontSize} 
@@ -139,7 +140,7 @@ export default function ModalAddCostCenter({open, handleOpen, width, height}){
                   onChange={(item) => setPrice(item)}
                 ></Numberfield>
                   <Numberfield
-                  label="Quantidade no estoque"
+                  label="Qtd. no estoque"
                   disabled={false}
                   width={'90%'}
                   value={stock} 

@@ -6,6 +6,9 @@ height: 100%;
 width: 100%;
 padding: 32px;
 overflow-y: auto;
+@media (max-width: 768px) {
+  padding-bottom: 5rem;
+}
 `;
 
 export const Content = styled.div`
@@ -24,6 +27,12 @@ display: flex;
 flex-direction: row;
 align-items: center;
 justify-content: space-between;
+@media (max-width: 768px) {
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
 `;
 
 export const SectionTitle = styled.h1`
@@ -52,6 +61,10 @@ margin-top: 1rem;
 grid-template-columns: 1fr 1fr 1fr 1fr;
 row-gap: 0.8rem;
 column-gap: 0.8rem;
+@media (max-width: 768px) {
+  grid-template-columns: 1fr;
+
+}
 `;
 
 export const ProductBox = styled.div`

@@ -38,7 +38,8 @@ export default function ModalAddCostCenter({open, handleOpen, width, height, pro
     const [category, setCategory] = useState(categories[0])
     const fontSize = 14;
     const [loading, setLoading] = useState(true);
-  
+    const isMobile = window.innerWidth < 768;
+
     // const [, setSnack] = useContext(AppContext).snackState;
 
     const title = 'Editar produto';
@@ -126,11 +127,11 @@ export default function ModalAddCostCenter({open, handleOpen, width, height, pro
           )
         } else {
             return(
-<Content>
+            <Content>
                 <Row>
                     <Textfield
                     label="Nome do produto"
-                    width={400}
+                    width={isMobile ? '100%': 400}
                     disabled={false} 
                     value={name} 
                     fontSize={fontSize} 
@@ -141,7 +142,7 @@ export default function ModalAddCostCenter({open, handleOpen, width, height, pro
                 <Row>
                 <Autocomplete
                   value={category}
-                  width={400}
+                  width={isMobile ? '100%': 400}
                   disabled={false}
                   options={categories}
                   fontSize={fontSize} 
@@ -159,7 +160,7 @@ export default function ModalAddCostCenter({open, handleOpen, width, height, pro
                   onChange={(item) => setPrice(item)}
                 ></Numberfield>
                   <Numberfield
-                  label="Quantidade no estoque"
+                  label="Qtd. no estoque"
                   disabled={false}
                   width={'90%'}
                   value={stock} 

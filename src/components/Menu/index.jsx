@@ -103,4 +103,4 @@ export function Menu() {
     <LogoutItem/>
    </Nav>
   )
-};
+}
