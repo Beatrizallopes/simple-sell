@@ -131,7 +131,7 @@ export const EditIcon = styled.img`
   height: 1rem;
   position: absolute;
   top: 1rem;
-  right: 2.5rem;
+  right: 1rem;
   cursor: pointer;
   transition: transform .2s;
     &:hover {

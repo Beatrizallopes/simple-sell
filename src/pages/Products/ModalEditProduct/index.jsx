@@ -14,7 +14,7 @@ import Spinner from "../../../components/Spinner";
 import Numberfield from "../../../components/Numberfield";
 import Autocomplete from "../../../components/Autocomplete";
 import AppContext from "../../../state/App.context";
-import { getProductById} from "../../../services/repository/products";
+import { getProductById, updateProduct} from "../../../services/repository/products";
 
 const categories = [
   {
@@ -31,7 +31,7 @@ const categories = [
   },
 ]
 
-export default function ModalEditProduct({open, handleOpen, width, height, product, id}){
+export default function ModalEditProduct({open, handleOpen, width, height, id, products, setProducts}){
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState(0);
@@ -39,32 +39,21 @@ export default function ModalEditProduct({open, handleOpen, width, height, produ
     const fontSize = 14;
     const [loading, setLoading] = useState(true);
     const isMobile = window.innerWidth < 768;
-    const [forceRenderKey, setForceRenderKey] = useState(0);
-
-
     const [, setSnack] = useContext(AppContext).snackState;
 
     const title = 'Editar produto';
 
-  //   function cleanAllInputs(){
-  //     try{
-  //         setName('');
-  //     } catch(err){
-  //          console.log(err);
-  //     }
-  // }
-
-  // function checkingRequiredFields() {
-  //   if (!name || !price) {
-  //     setSnack({
-  //       open: true,
-  //       severity: 'error', 
-  //       message: 'Preencha todos os campos necessários!',
-  //     });
-  //     return false;
-  //   }
-  //   return true;
-  // }
+  function checkingRequiredFields() {
+    if (name === '' || !price  || !stock || !category.id ) {
+      setSnack({
+        open: true,
+        severity: 'error', 
+        message: 'Preencha todos os campos necessários!',
+      });
+      return false;
+    }
+    return true;
+  }
 
    async function settingDefaultStates(){
     try{
@@ -99,31 +88,41 @@ export default function ModalEditProduct({open, handleOpen, width, height, produ
       try{
         setLoading(true);
         event.preventDefault();
-        console.log('Criando...')
-        console.log('Criado');
-        // if(checkingRequiredFields()){
-        //   const response = await createCostCenter(
-        //       {
-        //       name,
-        //       description,
-        //   }
-        //   );
-        //   if(response.success){
-        //       cleanAllInputs();
-        //       handleOpen(false);
-        //       setSnack({
-        //         open: true,
-        //         severity: 'success', 
-        //         message:response?.message,
-        //       })
-        //   } else {
-        //     setSnack({
-        //       open: true,
-        //       severity: 'error', 
-        //       message:'Ocorreu um erro no cadastro. Tente novamente ou entre em contato com a equipe técnica.',
-        //     })
-        //   }
-      // }
+        if(checkingRequiredFields()){
+          const response = await updateProduct(
+              {
+              id,
+              name,
+              price,
+              stock,
+              category: category.id
+          }
+          );
+          if(response.success){
+              let newProducts = [...products];
+              let productIndex = products.findIndex((element)=> element.id === id);
+              newProducts[productIndex] = {
+                id,
+                name,
+                price,
+                stock,
+                category: category.id
+              };
+              setProducts([...newProducts])
+              handleOpen(false);
+              setSnack({
+                open: true,
+                severity: 'success', 
+                message:response?.message,
+              })
+          } else {
+            setSnack({
+              open: true,
+              severity: 'error', 
+              message:'Ocorreu um erro na edição. Tente novamente ou entre em contato com a equipe técnica.',
+            })
+          }
+      }
       } catch(err){
         console.log(err);
       } finally{
@@ -140,7 +139,7 @@ export default function ModalEditProduct({open, handleOpen, width, height, produ
           )
         } else {
             return(
-            <Content key={forceRenderKey}>
+            <Content>
                 <Row>
                     <Textfield
                     label="Nome do produto"

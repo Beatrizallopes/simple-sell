@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Header from '../../components/Header';
 import {
    Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo, Stock, EditIcon, RemoveIcon
@@ -13,75 +13,7 @@ import ModalAddProduct from './ModalAddProduct/index';
 import ModalEditProduct from './ModalEditProduct/index';
 import Tooltip from '@mui/material/Tooltip';
 import { getProducts } from '../../services/repository/products';
-import LocalStorageService from '../../services/storage';
 import AppContext from "../../state/App.context";
-
-const productsMocked = [
-  {
-    id: 1,
-    name: 'Iphone 11',
-    price: 5000,
-    stock: 13,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'eletrônicos'
-  },
-  {
-    id: 2,
-    name: 'Iphone 12',
-    price: 7000,
-    stock: 30,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'eletrônicos'
-  },
-  {
-    id: 3,
-    name: 'Aspirador de pó',
-    price: 800,
-    stock: 2,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'casa'
-  },
-  {
-    id: 4,
-    name: 'Air Fryer',
-    price: 1200,
-    stock: 100,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'casa'
-  },  
-  {
-    id: 5,
-    name: 'Salto alto',
-    price: 200,
-    stock: 15,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'moda'
-  },
-  {
-    id: 6,
-    name: 'Bolsa azul',
-    price: 200,
-    stock: 15,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'moda'
-  },
-  {
-    id: 7,
-    name: 'Boné',
-    price: 200,
-    stock: 15,
-    lastUpdated: new Date(),
-    createdAt: new Date(),
-    category: 'moda'
-  },
-]
-
 
 function Products(){
   const [products, setProducts] = useState([])
@@ -90,7 +22,6 @@ function Products(){
   const [openModalAddProduct, setOpenModalAddProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({open: false, mode: '', info: {}});
   const isMobile = window.innerWidth < 768;
-  const localStorageService = LocalStorageService();
   const [, setSnack] = useContext(AppContext).snackState;
 
   let productsToShow = [...products];
@@ -145,7 +76,7 @@ function Products(){
           })}
           ></EditIcon>
         </Tooltip>
-        <Tooltip title='Deletar produto'>
+        {/* <Tooltip title='Deletar produto'>
           <RemoveIcon 
           src={Delete}
           onClick={()=>setSelectedProduct({
@@ -154,7 +85,7 @@ function Products(){
             info: {...product}
           })}
           ></RemoveIcon>
-        </Tooltip>
+        </Tooltip> */}
         <ProductInfo>
           <Name>{product?.name}</Name>
           <Price>{formatMoney(product?.price)}</Price>
@@ -229,8 +160,9 @@ function Products(){
           handleOpen={setSelectedProduct} 
           width={700} 
           height={330} 
-          product={selectedProduct.info}
           id={selectedProduct?.info?.id}
+          products={products}
+          setProducts={setProducts}
          ></ModalEditProduct>
       </Container>
     );

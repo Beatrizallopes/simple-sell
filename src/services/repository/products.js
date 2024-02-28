@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const products =  [
     {
       id: 1,
@@ -112,7 +113,7 @@ export const getProducts = async () => {
     try {
     //   const response = await api.put('/products/?id=' + product?.id, {...product});   
     const response = {
-        status: 201,
+        success: true,
         message: 'Produto editado com sucesso!',
     }
      return response;
