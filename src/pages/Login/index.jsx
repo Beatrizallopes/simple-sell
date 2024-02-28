@@ -37,8 +37,8 @@ export default function Login(){
 
   async function verifyingCredentials(){
     try{
-      const responseLogin = await authenticateUser({e_mail: email, user_password: password});
-      if(responseLogin.success){
+      const responseLogin = await authenticateUser(email, password);
+      if(responseLogin.status === 200){
        await Promise.all([
           localStorageService.setToken({ token: responseLogin?.data?.token }),
           localStorageService.setUserInfo({
@@ -49,13 +49,13 @@ export default function Login(){
         setSnack({
           open: true,
           severity: 'success', 
-          message:responseLogin?.message,
+          message:'Login efetuado com sucesso!',
         });
       } else {
         setSnack({
           open: true,
           severity: 'error', 
-          message:responseLogin?.message,
+          message:responseLogin.message,
         })
       }
     } catch(err){

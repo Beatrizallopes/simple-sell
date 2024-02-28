@@ -33,13 +33,13 @@ function Products(){
   async function gettingProducts(){
     try{
       const response = await getProducts();
-      if(response.success){
+      if(response.status === 200){
         setProducts(response?.data);
       } else {
         setSnack({
           open: true,
           severity: 'error', 
-          message:response?.message,
+          message:response?.statusText,
         })
       }
     } catch(err){

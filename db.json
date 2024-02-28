@@ -1,0 +1,75 @@
+{
+    "products": [
+        {
+          "id": 1,
+          "name": "Iphone 11",
+          "price": 5000,
+          "stock": 13,
+          "lastUpdated": "2024-02-28T14:00:00.000Z",
+          "createdAt": "2024-02-28T14:00:00.000Z",
+          "category": "eletrônicos"
+        },
+        {
+          "id": 2,
+          "name": "Iphone 12",
+          "price": 7000,
+          "stock": 30,
+          "lastUpdated": "2024-02-28T14:00:00.000Z",
+          "createdAt": "2024-02-28T14:00:00.000Z",
+          "category": "eletrônicos"
+        },
+        {
+          "id": 3,
+          "name": "Aspirador de pó",
+          "price": 800,
+          "stock": 2,
+          "lastUpdated": "2024-02-28T14:00:00.000Z",
+          "createdAt": "2024-02-28T14:00:00.000Z",
+          "category": "casa"
+        },
+        {
+          "id": 4,
+          "name": "Air Fryer",
+          "price": 1200,
+          "stock": 100,
+          "lastUpdated": "2024-02-28T14:00:00.000Z",
+          "createdAt": "2024-02-28T14:00:00.000Z",
+          "category": "casa"
+        },
+        {
+          "id": 5,
+          "name": "Salto alto",
+          "price": 200,
+          "stock": 15,
+          "lastUpdated": "2024-02-28T14:00:00.000Z",
+          "createdAt": "2024-02-28T14:00:00.000Z",
+          "category": "moda"
+        },
+        {
+          "id": 6,
+          "name": "Bolsa azul",
+          "price": 200,
+          "stock": 15,
+          "lastUpdated": "2024-02-28T14:00:00.000Z",
+          "createdAt": "2024-02-28T14:00:00.000Z",
+          "category": "moda"
+        },
+        {
+          "id": 7,
+          "name": "Boné",
+          "price": 200,
+          "stock": 15,
+          "lastUpdated": "2024-02-28T14:00:00.000Z",
+          "createdAt": "2024-02-28T14:00:00.000Z",
+          "category": "moda"
+        }
+      ],
+      "users": [
+        {
+            "email": "beatriz.allopes@hotmail.com",
+            "password": "123",
+            "token": "123ABC"
+        }
+      ]
+      
+}
