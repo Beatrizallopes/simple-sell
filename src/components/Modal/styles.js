@@ -33,7 +33,7 @@ export const Header  = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid var(--txt-title);
+    // border-bottom: 0.5px solid var(--txt-subtitle);
     position: relative;
     padding-bottom: 8px;
     h1{

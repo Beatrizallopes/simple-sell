@@ -1,4 +1,4 @@
-
+/* eslint-disable react/prop-types */
 import React from 'react';
 import Modal from '@mui/material/Modal';
 import {Container, Header} from './styles';
@@ -15,7 +15,7 @@ export default function CustomizedModal({title,open, handleOpen, width, height, 
         <Container style={{width, height}}>
           <Header>
           <h1>
-            {title}
+            {title} aaa
           </h1>
           <img src={Close} onClick={()=> handleOpen(false)} alt="Fechar"></img>
           </Header>
