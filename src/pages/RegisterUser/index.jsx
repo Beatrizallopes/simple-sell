@@ -31,8 +31,6 @@ export default function RegisterUser(){
 
   function verifyPasswords(){
     try{
-      console.log(password);
-      console.log(confirmPassword);
       let passwordsMatch = false;
       if(password === confirmPassword){
         passwordsMatch = true;

@@ -2,7 +2,7 @@ export const getProducts = async () => {
     try {
     //   const response = await api.get('/products');
       const response = {
-        status : 200,
+        success : true,
         data:  [
             {
               id: 1,
@@ -80,7 +80,7 @@ export const getProducts = async () => {
     try {
     //   const response = await api.post('/products', {...product});   
     const response = {
-        status: 201,
+        success : true,
         message: 'Produto adicionado com sucesso!',
     }
      return response;

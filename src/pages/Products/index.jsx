@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Header from '../../components/Header';
 import {
    Container, Content, Row, SectionTitle, Section, ProductsList, ProductBox, Name, ProductIcon, Price, ProductInfo, Stock, EditIcon, RemoveIcon
@@ -12,7 +12,9 @@ import { formatMoney } from '../../services/functions';
 import ModalAddProduct from './ModalAddProduct/index';
 import ModalEditProduct from './ModalEditProduct/index';
 import Tooltip from '@mui/material/Tooltip';
-
+import { getProducts } from '../../services/repository/products';
+import LocalStorageService from '../../services/storage';
+import AppContext from "../../state/App.context";
 
 const productsMocked = [
   {
@@ -82,18 +84,44 @@ const productsMocked = [
 
 
 function Products(){
-  const [products, setProducts] = useState(productsMocked)
+  const [products, setProducts] = useState([])
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [openModalAddProduct, setOpenModalAddProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({open: false, mode: '', info: {}});
   const isMobile = window.innerWidth < 768;
+  const localStorageService = LocalStorageService();
+  const [, setSnack] = useContext(AppContext).snackState;
 
   let productsToShow = [...products];
 
   if(search.length > 0){
     productsToShow = productsToShow.filter(a => a.name.toLowerCase().includes(search.toLowerCase()));
   }
+
+  async function gettingProducts(){
+    try{
+      const response = await getProducts();
+      if(response.success){
+        setProducts(response?.data);
+      } else {
+        setSnack({
+          open: true,
+          severity: 'error', 
+          message:response?.message,
+        })
+      }
+    } catch(err){
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(()=>{
+    gettingProducts()
+  }, [])
+
 
   function Product({product}){
     let icon = Eletronics;
@@ -103,6 +131,7 @@ function Products(){
     if(product?.category === 'casa'){
       icon = House;
     }
+
     return (
       <ProductBox>
         <ProductIcon src={icon}></ProductIcon>
@@ -192,6 +221,8 @@ function Products(){
           handleOpen={setOpenModalAddProduct} 
           width={700} 
           height={330} 
+          products={products}
+          setProducts={setProducts}
          ></ModalAddProduct>
         <ModalEditProduct 
           open={selectedProduct.open} 
