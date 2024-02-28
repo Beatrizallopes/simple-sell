@@ -47,11 +47,11 @@ export default function RegisterUser(){
       if(email !== '' && password !== '' && confirmPassword !== ''){
         if(verifyPasswords()){
           const response = await createUser(email, password);
-          if(response.success){
+          if(response.status === 201){
             setSnack({
               open: true,
               severity: 'success', 
-              message:response?.message,
+              message:'Usuário criado com sucesso!',
             });
             navigate('/');
           } else {
