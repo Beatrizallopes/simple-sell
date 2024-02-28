@@ -80,7 +80,8 @@ export default function ModalAddProduct({open, handleOpen, width, height, produc
               stock,
           }
           );
-          if(response.success){
+          console.log(response);
+          if(response.status === 201){
               let newProducts = [...products];
               newProducts.push({
                 name,
@@ -94,7 +95,7 @@ export default function ModalAddProduct({open, handleOpen, width, height, produc
               setSnack({
                 open: true,
                 severity: 'success', 
-                message:response?.message,
+                message:'Produto adicionado com sucesso!',
               })
           } else {
             setSnack({

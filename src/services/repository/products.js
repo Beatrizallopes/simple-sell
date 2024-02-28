@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import api from "../api";
+
 const products =  [
     {
       id: 1,
@@ -67,11 +69,7 @@ const products =  [
 
 export const getProducts = async () => {
     try {
-    //   const response = await api.get('/products');
-      const response = {
-        success : true,
-        data: [... products]
-      }
+      const response = await api.get('/products');
       return response;
     } catch (err) {
       console.log('[getProducts]', err?.response);
@@ -97,11 +95,11 @@ export const getProducts = async () => {
 
   export const createProduct = async (product) => {
     try {
-    //   const response = await api.post('/products', {...product});   
-    const response = {
-        success : true,
-        message: 'Produto adicionado com sucesso!',
-    }
+      const response = await api.post('/products', {...product});   
+    // const response = {
+    //     success : true,
+    //     message: 'Produto adicionado com sucesso!',
+    // }
      return response;
     } catch (err) {
       console.log('[createProduct]', err?.response);
